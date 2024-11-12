@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<% layout('layout') %>
+<h2>Welcome to our Survey Site</h2>
+<p>Create your own surveys, view others, and manage surveys.</p> 
+<a href="/surveys/create" class="btn">Create a New Survey</a>
+
+<h3>Active Surveys</h3> 
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% surveys.forEach(survey => { %>
+            <tr>
+                <td><%= survey.title %></td>
+                <td><%= survey.description %></td>
+                <td>
+                    <a href="/surveys/edit/<%= survey.id %>">Edit</a>
+                    <form action="/surveys/delete/<%= survey.id %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
