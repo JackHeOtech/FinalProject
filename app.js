@@ -34,4 +34,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+const mongoose = require('./config/db');
+
 module.exports = app;
