@@ -3,26 +3,30 @@
 <a href="/surveys/create" class="btn">Create a New Survey</a>
 
 <h3>Active Surveys</h3> 
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% surveys.forEach(survey => { %>
+<% if (typeof surveys !== 'undefined' && surveys.length > 0) { %>
+    <table>
+        <thead>
             <tr>
-                <td><%= survey.title %></td>
-                <td><%= survey.description %></td>
-                <td>
-                    <a href="/surveys/edit/<%= survey.id %>">Edit</a>
-                    <form action="/surveys/delete/<%= survey.id %>" method="POST" style="display:inline;">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
-        <% }) %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% surveys.forEach(survey => { %>
+                <tr>
+                    <td><%= survey.title %></td>
+                    <td><%= survey.description %></td>
+                    <td>
+                        <a href="/surveys/edit/<%= survey.id %>">Edit</a>
+                        <form action="/surveys/delete/<%= survey.id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>No active surveys available.</p>
+<% } %>
