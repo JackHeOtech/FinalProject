@@ -38,9 +38,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const expressLayouts = require('express-ejs-layouts');
-app.use(expressLayouts);
-
 const mongoose = require('./config/db');
 
 module.exports = app;
