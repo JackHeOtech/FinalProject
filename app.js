@@ -23,18 +23,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware to set a default title for all views
 app.use((req, res, next) => {
-  res.locals.title = 'My Survey Site';
+  res.locals.title = 'Our Survey Site';
   next();
 });
 
-// Route definitions
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/surveys', surveysRouter);
 
-// Error handling
 app.use(function(req, res, next) {
   next(createError(404));
 });
