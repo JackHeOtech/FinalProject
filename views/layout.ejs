@@ -14,6 +14,13 @@
             <a href="/">Home</a>
             <a href="/surveys">View Surveys</a>
             <a href="/surveys/create">Create Survey</a>
+
+            <% if (isAuthenticated) { %>
+                <a href="/users/logout">Logout</a>
+            <% } else { %>
+                <a href="/users/login">Login</a>
+                <a href="/users/register">Register</a>
+            <% } %>
         </nav>
     </header>
 
