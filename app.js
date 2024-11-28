@@ -62,6 +62,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.user = req.user || null; 
+  next();
+});
+
 const mongoose = require('./config/db');
 
 module.exports = app;
