@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({ //Creates a user schema which allows the user to input a user and password
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
