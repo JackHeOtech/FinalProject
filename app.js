@@ -44,6 +44,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null; 
   res.locals.error_msg = req.flash('error_msg'); 
   res.locals.success_msg = req.flash('success_msg');
+  res.locals.isAuthenticated = req.isAuthenticated(); 
   next();
 });
 
@@ -60,12 +61,6 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
   res.render('error');
-});
-
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.isAuthenticated();
-  res.locals.user = req.user || null; 
-  next();
 });
 
 const mongoose = require('./config/db');
