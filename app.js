@@ -9,6 +9,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var surveysRouter = require('./routes/surveys');
 
+const session = require('express-session');
+const passport = require('./config/passport'); 
+const flash = require('connect-flash');
+
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +46,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(
+  session({
+    secret: 'your_secret_key', 
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 const mongoose = require('./config/db');
 
