@@ -1,14 +1,3 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var expressLayouts = require('express-ejs-layouts'); 
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var surveysRouter = require('./routes/surveys');
-
 const session = require('express-session');
 const passport = require('./config/passport'); 
 const flash = require('connect-flash');
@@ -27,8 +16,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(
+  session({
+    secret: 'your_secret_key', 
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 app.use((req, res, next) => {
   res.locals.title = 'Our Survey Site';
+  res.locals.user = req.user || null; 
+  res.locals.error_msg = req.flash('error_msg'); 
+  res.locals.success_msg = req.flash('success_msg');
   next();
 });
 
@@ -46,18 +50,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.use(
-  session({
-    secret: 'your_secret_key', 
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
 
 const mongoose = require('./config/db');
 
