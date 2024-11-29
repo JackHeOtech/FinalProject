@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 var surveysRouter = require('./routes/surveys');
 
 const session = require('express-session');
-const passport = require('./config/passport');
+const passport = require('./config/passport'); //Configure the passport library in app.js
 const flash = require('connect-flash');
 
 var app = express();

@@ -6,14 +6,14 @@ const userSchema = new mongoose.Schema({ //Creates a user schema which allows th
   password: { type: String, required: true },
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) { //Password check before savint to database and hashing to secure password
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-userSchema.methods.isValidPassword = async function (password) {
+userSchema.methods.isValidPassword = async function (password) { //Ensures password matches one in schema
   return bcrypt.compare(password, this.password);
 };
 
