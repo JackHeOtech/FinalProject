@@ -1,12 +1,11 @@
-<% layout('layout') %>
 <h2>Edit Survey</h2>
-<form action="/surveys/edit/<%= survey.id %>" method="POST">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" value="<%= survey.title %>" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required><%= survey.description %></textarea>
-
-    <button type="submit">Update Survey</button>
+<form action="/surveys/edit/<%= survey._id %>" method="POST">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" value="<%= survey.title %>" required>
+  
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" required><%= survey.description %></textarea>
+  
+  <button type="submit">Update Survey</button>
 </form>
 <a href="/surveys">Back to Surveys</a>
