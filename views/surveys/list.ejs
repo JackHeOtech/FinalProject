@@ -1,12 +1,14 @@
 <h2>Active Surveys</h2>
 <ul>
-    <% surveys.forEach(function(survey) { %> 
+  <% surveys.forEach(function(survey) { %>
     <li>
-        <h2><%= survey.title %></h2>
-        <p><%= survey.description %></p>
-        <a href="/surveys/<%= survey.title + ' - ' + survey.description %>">View Survey</a>
-        <a href="/surveys/edit/<%= survey.title + ' - ' + survey.description %>">Edit Survey</a>
+      <h2><%= survey.title %></h2>
+      <p><%= survey.description %></p>
+      <a href="/surveys/edit/<%= survey._id %>">Edit Survey</a>
+      <form action="/surveys/delete/<%= survey._id %>" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
     </li>
-    <% }); %>
+  <% }); %>
 </ul>
-<a href="/surveys">Back to Surveys</a>
+<a href="/">Back to Home</a>

@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <header>
-        <h1>Survey Site</h1>
-        <img src="/images/logo.png" alt="Site Logo">
-        <nav>
-            <a href="/">Home</a>
-            <% if (isAuthenticated) { %>
-                <a href="/surveys">View Surveys</a>
-                <a href="/surveys/create">Create Survey</a>
-                <a href="/users/logout">Logout</a>
-            <% } else { %>
-                <a href="/users/login">Login</a>
-                <a href="/users/register">Register</a>
-            <% } %>
-        </nav>
-    </header>
-
-    <main>
-        <%- body %> 
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Survey Site. All rights reserved.</p>
-    </footer>
+  <header>
+    <h1>Survey Site</h1>
+    <nav>
+      <a href="/">Home</a>
+      <% if (isAuthenticated) { %>
+        <a href="/surveys">View Surveys</a>
+        <a href="/surveys/create">Create Survey</a>
+        <a href="/users/logout">Logout</a>
+      <% } else { %>
+        <a href="/users/login">Login</a>
+        <a href="/users/register">Register</a>
+      <% } %>
+    </nav>
+  </header>
+  <main>
+    <%- body %>
+  </main>
+  <footer>
+    <p>&copy; 2024 Survey Site. All rights reserved.</p>
+  </footer>
 </body>
 </html>
