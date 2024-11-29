@@ -9,7 +9,8 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     const surveys = await Survey.find();
     res.render('surveys/list', { title: 'Survey List', surveys });
   } catch (error) {
-    res.status(500).send("Could not receive Survey. Error.");
+    console.error(error);
+    res.status(500).send('Could not retrieve surveys.');
   }
 });
 
@@ -24,16 +25,19 @@ router.post('/create', ensureAuthenticated, async (req, res) => {
     await newSurvey.save();
     res.redirect('/surveys');
   } catch (error) {
-    res.status(500).send("Survey could not be created. Error.");
+    console.error(error);
+    res.status(500).send('Survey could not be created.');
   }
 });
 
 router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
   try {
     const survey = await Survey.findById(req.params.id);
+    if (!survey) return res.status(404).send('Survey not found.');
     res.render('surveys/edit', { title: 'Edit Survey', survey });
   } catch (error) {
-    res.status(500).send("Survey could not be received. Error.");
+    console.error(error);
+    res.status(500).send('Could not retrieve survey for editing.');
   }
 });
 
@@ -43,7 +47,8 @@ router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
     await Survey.findByIdAndUpdate(req.params.id, { title, description });
     res.redirect('/surveys');
   } catch (error) {
-    res.status(500).send("Survey was not updated. Error.");
+    console.error(error);
+    res.status(500).send('Survey could not be updated.');
   }
 });
 
@@ -52,7 +57,8 @@ router.post('/delete/:id', ensureAuthenticated, async (req, res) => {
     await Survey.findByIdAndDelete(req.params.id);
     res.redirect('/surveys');
   } catch (error) {
-    res.status(500).send("Survey could not be deleted. Error.");
+    console.error(error);
+    res.status(500).send('Survey could not be deleted.');
   }
 });
 
