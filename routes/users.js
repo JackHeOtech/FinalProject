@@ -41,6 +41,39 @@ router.get('/logout', (req, res) => {
   });
 });
 
+router.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/surveys',
+    failureRedirect: '/users/login',
+  })
+);
+
+router.get('/auth/facebook', passport.authenticate('facebook'));
+
+router.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/surveys',
+    failureRedirect: '/users/login',
+  })
+);
+
+router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get(
+  '/auth/github/callback',
+  passport.authenticate('github', {
+    successRedirect: '/surveys',
+    failureRedirect: '/users/login',
+  })
+);
+
 router.get('/error', (req, res) => {
   res.render('users/error', { title: 'Error' });
 });
