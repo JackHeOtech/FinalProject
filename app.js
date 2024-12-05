@@ -12,7 +12,6 @@ var usersRouter = require('./routes/users');
 var surveysRouter = require('./routes/surveys');
 
 const session = require('express-session');
-const passport = require('./config/passport'); //Configure the passport library in app.js
 const flash = require('connect-flash');
 
 var app = express();
@@ -37,16 +36,12 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.title = 'Our Survey Site';
-  res.locals.user = req.user || null;
   res.locals.error_msg = req.flash('error_msg');
   res.locals.success_msg = req.flash('success_msg');
-  res.locals.isAuthenticated = req.isAuthenticated();
   next();
 });
 
