@@ -12,8 +12,9 @@ var usersRouter = require('./routes/users');
 var surveysRouter = require('./routes/surveys');
 
 const session = require('express-session');
-const passport = require('./config/passport'); //Configure the passport library in app.js
+const passport = require('./config/passport'); 
 const flash = require('connect-flash');
+const cors = require('cors'); 
 
 var app = express();
 
@@ -23,7 +24,14 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
-app.use(logger('dev'));
+app.use(logger('dev')); 
+
+app.use(cors({
+    origin: 'surveysitefrontend.azurewebsites.net', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
